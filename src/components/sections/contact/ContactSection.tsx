@@ -74,7 +74,8 @@ const contactMethods: ContactMethod[] = [
   {
     label: "Gmail",
     value: "vanshharit@gmail.com",
-    href: "mailto:vanshharit@gmail.com",
+    href: "https://mail.google.com/mail/?view=cm&fs=1&to=vanshharit%40gmail.com",
+    external: true,
     icon: SiGmail,
     wide: true,
     accent: "text-rose-300",
