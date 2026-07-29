@@ -32,10 +32,38 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
 
+# other deployment and build caches
+.netlify/
+.turbo/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# editor and operating-system files
+.idea/
+.vscode/
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+
+# test and performance reports
+playwright-report/
+test-results/
+.lighthouseci/
+
+# local Codex artifacts and one-off tooling
+.codex/
+.codex-remote-attachments/
+get_tools.js
+CHANGELOG.md
+PRODUCT_STATE.md
+
+# unused local video exports (not referenced by the application)
+/public/Videos/
