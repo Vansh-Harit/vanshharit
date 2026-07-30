@@ -82,12 +82,8 @@ const projects: Project[] = [
       "nextjs",
       "typescript",
       "supabase",
-      "razorpay",
       "cloudflare-r2",
-      "resend",
       "upstash-redis",
-      "sentry",
-      "netlify",
     ],
     details: [
       "A web application enabling businesses to run paid creative contests - connecting clients with contestants across content categories (script writing, brand naming, copywriting, design) through a structured entry, submission, and prize-payout workflow.",

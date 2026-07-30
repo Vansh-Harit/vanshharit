@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { PersonStructuredData } from "@/components/seo/PersonStructuredData";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
@@ -90,6 +91,7 @@ export default function RootLayout({
         <main className="relative z-10 flex flex-col flex-1 min-h-full w-full">
           {children}
         </main>
+        <Analytics />
       </body>
     </html>
   );

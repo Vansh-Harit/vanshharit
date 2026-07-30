@@ -10,14 +10,10 @@ import {
   SiCloudflare,
   SiNextdotjs,
   SiPython,
-  SiRazorpay,
-  SiResend,
-  SiSentry,
   SiStreamlit,
   SiSupabase,
   SiTypescript,
   SiUpstash,
-  SiNetlify,
 } from "react-icons/si";
 import { cn } from "@/lib/utils";
 
@@ -29,12 +25,8 @@ export type TechnologyId =
   | "typescript"
   | "supabase"
   | "google-oauth"
-  | "razorpay"
   | "cloudflare-r2"
-  | "resend"
-  | "upstash-redis"
-  | "sentry"
-  | "netlify";
+  | "upstash-redis";
 
 interface Technology {
   id: TechnologyId;
@@ -87,41 +79,17 @@ const technologyRegistry: Record<TechnologyId, Technology> = {
     color: "#4285f4",
     icon: SiGoogle,
   },
-  razorpay: {
-    id: "razorpay",
-    label: "Razorpay",
-    color: "#0c63f2",
-    icon: SiRazorpay,
-  },
   "cloudflare-r2": {
     id: "cloudflare-r2",
     label: "Cloudflare R2",
     color: "#f38020",
     icon: SiCloudflare,
   },
-  resend: {
-    id: "resend",
-    label: "Resend",
-    color: "#a1a1aa",
-    icon: SiResend,
-  },
   "upstash-redis": {
     id: "upstash-redis",
     label: "Upstash Redis",
     color: "#00e9a3",
     icon: SiUpstash,
-  },
-  sentry: {
-    id: "sentry",
-    label: "Sentry",
-    color: "#8b5cf6",
-    icon: SiSentry,
-  },
-  netlify: {
-    id: "netlify",
-    label: "Netlify",
-    color: "#00c7b7",
-    icon: SiNetlify,
   },
 };
 
