@@ -95,9 +95,9 @@ export default function Hero() {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="flex flex-col xl:flex-row items-center justify-center gap-2 mb-6 md:mb-8"
             >
-              <h2 className="font-stack shrink-0 text-center text-2xl font-medium tracking-wide text-white min-[380px]:text-3xl md:text-4xl lg:text-5xl">
-                Vansh
-              </h2>
+              <h1 className="font-stack shrink-0 text-center text-2xl font-medium tracking-wide text-white min-[380px]:text-3xl md:text-4xl lg:text-5xl">
+                Vansh Harit
+              </h1>
               <span className="font-stack hidden xl:inline-block text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-wide mx-2 opacity-60">—</span>
               <TextFlip
                 words={["Founder-Engineer", "Full-Stack Builder"]}

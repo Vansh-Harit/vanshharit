@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { PersonStructuredData } from "@/components/seo/PersonStructuredData";
+import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,25 +14,64 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION;
+
 export const metadata: Metadata = {
-  title: "Vansh Harit | Founder-Engineer & Full-Stack Builder",
-  description:
-    "Portfolio of Vansh Harit, a computer science student building full-stack products, automation systems, and agentic AI.",
-  applicationName: "Vansh Harit Portfolio",
-  authors: [{ name: "Vansh Harit" }],
-  creator: "Vansh Harit",
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  applicationName: `${siteConfig.name} Portfolio`,
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
   keywords: [
     "Vansh Harit",
+    "Vansh Harit portfolio",
+    "Vansh Harit developer",
     "full-stack developer",
+    "AI developer",
+    "computer science student",
     "Next.js",
     "TypeScript",
     "AI agents",
-    "portfolio",
+    "multi-agent systems",
+    "n8n automation",
   ],
+  category: "technology",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: siteConfig.url,
+    title: siteConfig.title,
+    description: siteConfig.description,
+    siteName: `${siteConfig.name} Portfolio`,
+    locale: siteConfig.locale,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.title,
+    description: siteConfig.description,
+    creator: "@VansHx349",
+  },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
+  verification: googleSiteVerification
+    ? { google: googleSiteVerification }
+    : undefined,
 };
 
 export default function RootLayout({
@@ -44,6 +85,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col text-white bg-black">
+        <PersonStructuredData />
         {/* Foreground Content Layer */}
         <main className="relative z-10 flex flex-col flex-1 min-h-full w-full">
           {children}
