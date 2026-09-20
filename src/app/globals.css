@@ -124,6 +124,12 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
   body {
     @apply bg-background text-foreground;
   }
@@ -135,7 +141,7 @@
 @media (min-width: 1024px) {
   :root {
     --card-x: -18vw;
-    --card-y: 15vh;
+    --card-y: 9vh;
   }
 }
 

@@ -101,7 +101,7 @@ export default function Home() {
   return (
     <main
       className={cn(
-        "min-h-screen bg-transparent relative overflow-hidden flex flex-col",
+        "relative flex h-full min-h-[100dvh] max-h-[100dvh] w-full flex-col overflow-hidden bg-transparent overscroll-none",
         isDarkMode ||
           activeSection === "Experience" ||
           activeSection === "Contact"
@@ -114,7 +114,7 @@ export default function Home() {
         onSelectSection={(section) => setActiveSection(section)}
       />
 
-      <div className="flex-1 relative w-full h-full">
+      <div className="relative h-full w-full flex-1 overflow-hidden">
         <AnimatePresence mode="wait">
           {activeSection === "Introduction" && (
             <motion.div

@@ -55,7 +55,7 @@ export default function Navbar({
               {isActive && (
                 <motion.div
                   layoutId="activeUnderline"
-                  className="absolute bottom-1 z-20 h-[2.5px] w-7 rounded-full bg-black shadow-[0_0_8px_rgba(0,0,0,0.35)] dark:bg-white dark:shadow-[0_0_8px_rgba(255,255,255,0.35)] md:w-10"
+                  className="absolute bottom-1 left-1/2 -translate-x-1/2 z-20 h-[2.5px] w-7 rounded-full bg-black shadow-[0_0_8px_rgba(0,0,0,0.35)] dark:bg-white dark:shadow-[0_0_8px_rgba(255,255,255,0.35)] md:w-10"
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               )}

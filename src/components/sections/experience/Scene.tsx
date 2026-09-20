@@ -19,7 +19,7 @@ const EXPERIENCES: ExperienceData[] = [
   },
   {
     company: "OnePlay",
-    role: "Assistant Support Manager",
+    role: "Assistant Support Executive",
     duration: "May 2024 - Dec 2024",
     description: [
       "Managed day-to-day support operations, overseeing ticket queues and escalation workflows.",

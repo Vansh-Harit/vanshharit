@@ -85,10 +85,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col text-white bg-black">
+      <body className="h-full flex flex-col text-white bg-black overflow-hidden overscroll-none">
         <PersonStructuredData />
         {/* Foreground Content Layer */}
-        <main className="relative z-10 flex flex-col flex-1 min-h-full w-full">
+        <main className="relative z-10 flex flex-col flex-1 h-full w-full overflow-hidden overscroll-none">
           {children}
         </main>
         <Analytics />

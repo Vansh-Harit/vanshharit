@@ -72,10 +72,13 @@ const projects: Project[] = [
   },
   {
     id: "contestic",
-    railLabel: "Contestic [building]",
+    railLabel: "Contestic [live]",
     path: "contestic",
     title: "Contestic - Full-Stack Contest Platform",
-    date: "Building",
+    date: "Live",
+    linkLabel: "Contestic",
+    linkHref: "https://contestic.in/",
+    linkType: "website",
     technologies:
       "Next.js, TypeScript, Supabase (PostgreSQL/Auth/Realtime), Razorpay, Cloudflare R2, Resend, Upstash Redis, Sentry, Netlify",
     techStack: [

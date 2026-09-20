@@ -17,8 +17,9 @@ export default function Hero() {
     desktopQuery.addEventListener("change", updateLayout);
     return () => desktopQuery.removeEventListener("change", updateLayout);
   }, []);
+
   return (
-    <section className="relative min-h-screen w-full overflow-hidden">
+    <section className="absolute inset-0 h-full w-full overflow-hidden overscroll-none select-none">
       {/* Background is strictly scoped to Introduction Page */}
       <div className="fixed inset-0 pointer-events-none select-none -z-10">
         <Image
@@ -33,7 +34,7 @@ export default function Hero() {
       </div>
 
       {/* Glass Card */}
-      <div className="absolute inset-0 flex items-start justify-center px-6 pb-6 pt-[calc(env(safe-area-inset-top)+5.5rem)] lg:items-center lg:p-6">
+      <div className="pointer-events-none absolute inset-0 flex items-start justify-center overflow-hidden overscroll-none px-4 pb-4 pt-[calc(env(safe-area-inset-top)+5rem)] lg:items-center lg:p-6">
         <motion.div
           initial={{
             opacity: 0,
@@ -45,7 +46,7 @@ export default function Hero() {
             opacity: 1,
             scale: 1,
             x: isDesktop ? "-18vw" : 0,
-            y: isDesktop ? "15vh" : 0,
+            y: isDesktop ? "9vh" : 0,
           }}
           transition={{
             opacity: { duration: 0.45, delay: 0 },
@@ -54,12 +55,12 @@ export default function Hero() {
             y: { duration: 0.8, delay: 0.45, type: "spring", bounce: 0.35 },
           }}
           className="
+            pointer-events-auto
             w-[92vw] lg:w-[55vw]
-            h-[calc(100dvh-env(safe-area-inset-top)-7rem)] lg:h-[70vh]
-            py-8 lg:py-0
+            h-[calc(100dvh-env(safe-area-inset-top)-6.5rem)] lg:h-[70vh]
             max-w-[1400px]
             max-h-[900px]
-            rounded-[48px]
+            rounded-[36px] sm:rounded-[48px]
             border border-white/15
             bg-gradient-to-br
             from-white/15
@@ -70,9 +71,9 @@ export default function Hero() {
             relative
             overflow-hidden
             flex
-            items-center
-            justify-center
+            flex-col
             will-change-transform
+            overscroll-none
           "
         >
           {/* Top-left highlight reflection for the premium liquid glass look */}
@@ -88,7 +89,7 @@ export default function Hero() {
             "
           />
 
-          <div className="scrollbar-hide relative z-10 flex h-full w-full flex-col justify-start overflow-x-hidden overflow-y-auto p-5 min-[380px]:p-8 md:p-12">
+          <div className="scrollbar-hide relative z-10 flex h-full w-full flex-col justify-start overflow-x-hidden overflow-y-auto overscroll-contain touch-pan-y p-5 min-[380px]:p-8 md:p-12">
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -101,7 +102,7 @@ export default function Hero() {
               <span className="font-stack hidden xl:inline-block text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-wide mx-2 opacity-60">—</span>
               <TextFlip
                 words={["Founder-Engineer", "Full-Stack Builder"]}
-                duration={7000}
+                duration={4000}
                 className="font-stack mt-1 text-2xl font-medium tracking-wide text-white min-[380px]:text-3xl md:text-4xl lg:text-5xl xl:mt-0"
               />
             </motion.div>
