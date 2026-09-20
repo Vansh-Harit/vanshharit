@@ -23,11 +23,11 @@ export default function Hero() {
       {/* Background is strictly scoped to Introduction Page */}
       <div className="fixed inset-0 pointer-events-none select-none -z-10">
         <Image
-          src="/images/portfolio-bg.jpg"
+          src="/images/portfolio-bg.webp"
           alt="Site Background"
           fill
-          sizes="100vw"
-          preload
+          priority
+          unoptimized
           className="h-full w-full object-cover object-[85%_center] lg:object-center"
         />
         <div className="absolute inset-0 bg-black/30" />

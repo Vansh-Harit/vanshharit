@@ -48,26 +48,28 @@ export default function ProjectsSection({
           }}
           aria-hidden="true"
         >
-          {lowPowerMode ? (
-            <div
-              className="h-full w-full"
-              style={{
-                background: isDarkMode
-                  ? "linear-gradient(118deg, rgba(0,229,255,0.65) 0%, rgba(124,58,237,0.7) 48%, rgba(255,79,216,0.62) 100%)"
-                  : "linear-gradient(118deg, rgba(2,132,199,0.58) 0%, rgba(124,58,237,0.52) 48%, rgba(219,39,119,0.48) 100%)",
-              }}
-            />
-          ) : (
-            <Aurora
-              colorStops={
-                isDarkMode
-                  ? ["#00E5FF", "#7C3AED", "#FF4FD8"]
-                  : ["#0284C7", "#7C3AED", "#DB2777"]
-              }
-              amplitude={1.15}
-              blend={0.68}
-              speed={reduceMotion ? 0 : 0.42}
-            />
+          {/* Instant base gradient: guarantees glow is rendered from Frame 0 upon refresh/load */}
+          <div
+            className="absolute inset-0 transition-opacity duration-700"
+            style={{
+              background: isDarkMode
+                ? "linear-gradient(118deg, rgba(0,229,255,0.65) 0%, rgba(124,58,237,0.7) 48%, rgba(255,79,216,0.62) 100%)"
+                : "linear-gradient(118deg, rgba(2,132,199,0.58) 0%, rgba(124,58,237,0.52) 48%, rgba(219,39,119,0.48) 100%)",
+            }}
+          />
+          {!lowPowerMode && (
+            <div className="absolute inset-0">
+              <Aurora
+                colorStops={
+                  isDarkMode
+                    ? ["#00E5FF", "#7C3AED", "#FF4FD8"]
+                    : ["#0284C7", "#7C3AED", "#DB2777"]
+                }
+                amplitude={1.15}
+                blend={0.68}
+                speed={reduceMotion ? 0 : 0.42}
+              />
+            </div>
           )}
         </div>
 

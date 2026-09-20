@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { flushSync } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
@@ -22,11 +22,60 @@ const ContactSection = dynamic(
   { ssr: false }
 );
 
+const VALID_SECTIONS = ["Introduction", "Projects", "Experience", "Contact"] as const;
+type SectionType = (typeof VALID_SECTIONS)[number];
+
+function getInitialSection(): SectionType {
+  if (typeof window === "undefined") return "Introduction";
+
+  const hash = window.location.hash.replace("#", "").toLowerCase();
+  const matchedByHash = VALID_SECTIONS.find((s) => s.toLowerCase() === hash);
+  if (matchedByHash) return matchedByHash;
+
+  try {
+    const saved = sessionStorage.getItem("portfolio_section");
+    const matchedSaved = VALID_SECTIONS.find((s) => s === saved);
+    if (matchedSaved) return matchedSaved;
+  } catch {
+    // Ignore storage restriction
+  }
+
+  return "Introduction";
+}
+
 export default function Home() {
-  const [activeSection, setActiveSection] = useState("Introduction");
-  const [isDarkMode, setIsDarkMode] = useState(true); // Dark mode default // Initially Light Mode per requirements
+  const [activeSection, setActiveSection] = useState<SectionType>(() => getInitialSection());
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const { ready, isCoarsePointer } = usePointerCapabilities();
   const lowPowerMode = !ready || isCoarsePointer;
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const matched = getInitialSection();
+      setActiveSection(matched);
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+    window.addEventListener("popstate", handleHashChange);
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+      window.removeEventListener("popstate", handleHashChange);
+    };
+  }, []);
+
+  const handleSelectSection = (section: string) => {
+    const targetSection = (VALID_SECTIONS.find((s) => s === section) || "Introduction") as SectionType;
+    setActiveSection(targetSection);
+    try {
+      sessionStorage.setItem("portfolio_section", targetSection);
+      const targetHash = `#${targetSection.toLowerCase()}`;
+      if (window.location.hash !== targetHash) {
+        window.history.replaceState(null, "", targetHash);
+      }
+    } catch {
+      // Ignore
+    }
+  };
 
   // Slide transition variants
   const slideVariants = lowPowerMode
@@ -105,16 +154,13 @@ export default function Home() {
     <main
       className={cn(
         "relative flex h-full min-h-[100dvh] max-h-[100dvh] w-full flex-col overflow-hidden bg-transparent overscroll-none",
-        isDarkMode ||
-          activeSection === "Experience" ||
-          activeSection === "Contact"
-          ? "dark"
-          : ""
+        activeSection !== "Projects" || isDarkMode ? "dark" : ""
       )}
     >
       <Navbar
         activeSection={activeSection}
-        onSelectSection={(section) => setActiveSection(section)}
+        onSelectSection={handleSelectSection}
+        isDarkMode={isDarkMode}
       />
 
       <div className="relative h-full w-full flex-1 overflow-hidden">

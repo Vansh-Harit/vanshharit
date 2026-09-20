@@ -14,12 +14,18 @@ const navItems = [
 interface NavbarProps {
   activeSection: string;
   onSelectSection: (name: string) => void;
+  isDarkMode?: boolean;
 }
 
 export default function Navbar({
   activeSection,
   onSelectSection,
+  isDarkMode = true,
 }: NavbarProps) {
+  // Theme switching is strictly exclusive to the Projects section.
+  // In all other sections (Introduction, Experience, Contact), navbar is always white.
+  const isProjectsLightMode = activeSection === "Projects" && !isDarkMode;
+
   return (
     <motion.nav
       className="fixed left-1/2 top-[calc(env(safe-area-inset-top)+1rem)] z-50 w-[calc(100%-1rem)] max-w-[26rem] -translate-x-1/2 md:left-auto md:right-4 md:top-8 md:w-auto md:max-w-none md:translate-x-0 lg:right-6 xl:right-8 2xl:right-12"
@@ -46,7 +52,8 @@ export default function Navbar({
               <InteractiveHoverButton
                 onClick={() => onSelectSection(item.name)}
                 className={cn(
-                  "w-full px-1 py-2 text-[11px] font-medium tracking-wide text-black dark:text-white sm:px-2 sm:text-xs md:w-auto md:px-5 md:text-sm",
+                  "w-full px-1 py-2 text-[11px] font-medium tracking-wide sm:px-2 sm:text-xs md:w-auto md:px-5 md:text-sm transition-colors duration-200",
+                  isProjectsLightMode ? "text-black" : "text-white",
                   isActive && "font-semibold"
                 )}
               >
@@ -55,7 +62,12 @@ export default function Navbar({
               {isActive && (
                 <motion.div
                   layoutId="activeUnderline"
-                  className="absolute bottom-1 left-1/2 -translate-x-1/2 z-20 h-[2.5px] w-7 rounded-full bg-black shadow-[0_0_8px_rgba(0,0,0,0.35)] dark:bg-white dark:shadow-[0_0_8px_rgba(255,255,255,0.35)] md:w-10"
+                  className={cn(
+                    "absolute bottom-1 left-1/2 -translate-x-1/2 z-20 h-[2.5px] w-7 rounded-full md:w-10 transition-colors duration-200",
+                    isProjectsLightMode
+                      ? "bg-black shadow-[0_0_8px_rgba(0,0,0,0.35)]"
+                      : "bg-white shadow-[0_0_8px_rgba(255,255,255,0.35)]"
+                  )}
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               )}
