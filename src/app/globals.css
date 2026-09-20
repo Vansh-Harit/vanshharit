@@ -129,6 +129,14 @@
     height: 100%;
     overflow: hidden;
     overscroll-behavior: none;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
   }
   body {
     @apply bg-background text-foreground;
@@ -145,9 +153,15 @@
   }
 }
 
+html:active-view-transition,
+html:active-view-transition * {
+  transition: none !important;
+}
+
 ::view-transition-old(root) {
   animation: none;
   mix-blend-mode: normal;
+  z-index: 1;
 }
 
 ::view-transition-new(root) {
@@ -157,6 +171,7 @@
     0 at var(--theme-transition-x) var(--theme-transition-y)
   );
   mix-blend-mode: normal;
+  z-index: 9999;
 }
 
 ::view-transition-image-pair(root) {

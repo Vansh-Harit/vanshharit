@@ -291,7 +291,7 @@ export function Terminal({
         <div
           id="project-detail-panel"
           role="tabpanel"
-          className="min-h-0 overflow-y-auto px-4 py-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-6 md:px-8 md:py-7 lg:px-10 lg:py-9"
+          className="min-h-0 overflow-y-auto px-4 py-5 select-text [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-6 md:px-8 md:py-7 lg:px-10 lg:py-9"
         >
           <AnimatePresence mode="wait" initial={false}>
             <motion.article
@@ -301,20 +301,17 @@ export function Terminal({
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.22, ease: "easeOut" }}
             >
-              <div className="mb-5 flex items-start gap-3 md:mb-7">
-                <span className="pt-0.5 text-sm font-bold opacity-35">$</span>
-                <div className="min-w-0">
-                  <p className="mb-2 text-[10px] uppercase tracking-[0.18em] opacity-40">
-                    project --inspect
-                  </p>
-                  <div className="flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between lg:gap-6">
-                    <h2 className="max-w-3xl text-lg font-bold leading-tight sm:text-xl lg:text-2xl">
-                      {selectedProject.title}
-                    </h2>
-                    <span className="shrink-0 text-xs opacity-50 lg:pt-1">
-                      {selectedProject.date}
-                    </span>
-                  </div>
+              <div className="mb-5 md:mb-7">
+                <p className="mb-2 text-[10px] uppercase tracking-[0.18em] opacity-40">
+                  project --inspect
+                </p>
+                <div className="flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between lg:gap-6">
+                  <h2 className="max-w-3xl text-lg font-bold leading-tight sm:text-xl lg:text-2xl">
+                    {selectedProject.title}
+                  </h2>
+                  <span className="shrink-0 text-xs opacity-50 lg:pt-1">
+                    {selectedProject.date}
+                  </span>
                 </div>
               </div>
 
@@ -346,14 +343,13 @@ export function Terminal({
                       key={selectedProject.id}
                       technologies={selectedProject.techStack}
                       isDarkMode={isDarkMode}
-                      className="pointer-events-auto"
                     />
                   </div>
                 )}
 
                 <div
                   className={cn(
-                    "relative z-10",
+                    "relative z-10 select-text",
                     lowPowerMode ? "lg:w-full" : "lg:w-[68%] xl:w-[70%]"
                   )}
                 >
@@ -374,12 +370,6 @@ export function Terminal({
                       </li>
                     ))}
                   </ul>
-
-                  <div className="mt-6 flex items-center gap-2 text-[10px] opacity-35 md:mt-8">
-                    <span>$</span>
-                    <span>select another project from the index</span>
-                    <span className="h-3.5 w-1.5 animate-pulse bg-current" />
-                  </div>
                 </div>
               </div>
             </motion.article>

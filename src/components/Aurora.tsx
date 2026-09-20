@@ -126,6 +126,34 @@ export default function Aurora(props: AuroraProps) {
     speed = 1,
   } = props;
   const ctnDom = useRef<HTMLDivElement>(null);
+  const programRef = useRef<Program | null>(null);
+  const propsRef = useRef({ speed, time });
+
+  useEffect(() => {
+    propsRef.current = { speed, time };
+  }, [speed, time]);
+
+  // Update color stops uniform without rebuilding WebGL context
+  useEffect(() => {
+    if (!programRef.current) return;
+    const colorStopsArray = colorStops.map((hex) => {
+      const c = new Color(hex);
+      return [c.r, c.g, c.b];
+    });
+    programRef.current.uniforms.uColorStops.value = colorStopsArray;
+  }, [colorStops]);
+
+  // Update amplitude uniform
+  useEffect(() => {
+    if (!programRef.current) return;
+    programRef.current.uniforms.uAmplitude.value = amplitude;
+  }, [amplitude]);
+
+  // Update blend uniform
+  useEffect(() => {
+    if (!programRef.current) return;
+    programRef.current.uniforms.uBlend.value = blend;
+  }, [blend]);
 
   useEffect(() => {
     const ctn = ctnDom.current;
@@ -134,13 +162,13 @@ export default function Aurora(props: AuroraProps) {
     const renderer = new Renderer({
       alpha: true,
       premultipliedAlpha: true,
-      antialias: true
+      antialias: true,
     });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-    gl.canvas.style.backgroundColor = 'transparent';
+    gl.canvas.style.backgroundColor = "transparent";
 
     function resize() {
       if (!ctn) return;
@@ -149,14 +177,14 @@ export default function Aurora(props: AuroraProps) {
       renderer.setSize(width, height);
       program.uniforms.uResolution.value = [width, height];
     }
-    window.addEventListener('resize', resize);
+    window.addEventListener("resize", resize);
 
     const geometry = new Triangle(gl);
     if (geometry.attributes.uv) {
       delete geometry.attributes.uv;
     }
 
-    const colorStopsArray = colorStops.map(hex => {
+    const colorStopsArray = colorStops.map((hex) => {
       const c = new Color(hex);
       return [c.r, c.g, c.b];
     });
@@ -169,9 +197,10 @@ export default function Aurora(props: AuroraProps) {
         uAmplitude: { value: amplitude },
         uColorStops: { value: colorStopsArray },
         uResolution: { value: [ctn.offsetWidth, ctn.offsetHeight] },
-        uBlend: { value: blend }
-      }
+        uBlend: { value: blend },
+      },
     });
+    programRef.current = program;
 
     const mesh = new Mesh(gl, { geometry, program });
     ctn.appendChild(gl.canvas);
@@ -179,8 +208,10 @@ export default function Aurora(props: AuroraProps) {
     let animateId = 0;
     let isRunning = false;
     const renderFrame = (timestamp: number) => {
-      const elapsed = time ?? timestamp * 0.01;
-      program.uniforms.uTime.value = elapsed * speed * 0.1;
+      const currentSpeed = propsRef.current.speed;
+      const currentTime = propsRef.current.time;
+      const elapsed = currentTime ?? timestamp * 0.01;
+      program.uniforms.uTime.value = elapsed * currentSpeed * 0.1;
       renderer.render({ scene: mesh });
     };
     const update = (timestamp: number) => {
@@ -189,7 +220,7 @@ export default function Aurora(props: AuroraProps) {
       animateId = requestAnimationFrame(update);
     };
     const start = () => {
-      if (isRunning || speed === 0 || document.hidden) return;
+      if (isRunning || document.hidden) return;
       isRunning = true;
       animateId = requestAnimationFrame(update);
     };
@@ -206,23 +237,21 @@ export default function Aurora(props: AuroraProps) {
     };
 
     resize();
-    if (speed === 0) {
-      renderFrame(0);
-    } else {
-      start();
-    }
-    document.addEventListener('visibilitychange', handleVisibilityChange);
+    start();
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
       stop();
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('resize', resize);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("resize", resize);
+      programRef.current = null;
       if (ctn && gl.canvas.parentNode === ctn) {
         ctn.removeChild(gl.canvas);
       }
-      gl.getExtension('WEBGL_lose_context')?.loseContext();
+      gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
-  }, [amplitude, blend, colorStops, speed, time]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return <div ref={ctnDom} className="w-full h-full" />;
 }

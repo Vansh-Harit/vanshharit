@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { flushSync } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
@@ -87,7 +88,9 @@ export default function Home() {
     root.style.setProperty("--theme-transition-duration", "1000ms");
 
     const transition = document.startViewTransition(() => {
-      setIsDarkMode((prev) => !prev);
+      flushSync(() => {
+        setIsDarkMode((prev) => !prev);
+      });
     });
 
     transition.finished.finally(() => {

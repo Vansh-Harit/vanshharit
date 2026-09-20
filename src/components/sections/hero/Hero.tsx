@@ -19,7 +19,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="absolute inset-0 h-full w-full overflow-hidden overscroll-none select-none">
+    <section className="absolute inset-0 h-full w-full overflow-hidden overscroll-none">
       {/* Background is strictly scoped to Introduction Page */}
       <div className="fixed inset-0 pointer-events-none select-none -z-10">
         <Image
@@ -56,6 +56,7 @@ export default function Hero() {
           }}
           className="
             pointer-events-auto
+            select-text
             w-[92vw] lg:w-[55vw]
             h-[calc(100dvh-env(safe-area-inset-top)-6.5rem)] lg:h-[70vh]
             max-w-[1400px]
@@ -89,14 +90,14 @@ export default function Hero() {
             "
           />
 
-          <div className="scrollbar-hide relative z-10 flex h-full w-full flex-col justify-start overflow-x-hidden overflow-y-auto overscroll-contain touch-pan-y p-5 min-[380px]:p-8 md:p-12">
+          <div className="scrollbar-hide relative z-10 flex h-full w-full flex-col justify-start overflow-x-hidden overflow-y-auto overscroll-contain touch-pan-y select-text p-5 min-[380px]:p-8 md:p-12">
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
               className="flex flex-col xl:flex-row items-center justify-center gap-2 mb-6 md:mb-8"
             >
-              <h1 className="font-stack shrink-0 text-center text-2xl font-medium tracking-wide text-white min-[380px]:text-3xl md:text-4xl lg:text-5xl">
+              <h1 className="font-stack shrink-0 select-text cursor-text text-center text-2xl font-medium tracking-wide text-white min-[380px]:text-3xl md:text-4xl lg:text-5xl">
                 Vansh Harit
               </h1>
               <span className="font-stack hidden xl:inline-block text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-wide mx-2 opacity-60">—</span>
@@ -107,7 +108,7 @@ export default function Hero() {
               />
             </motion.div>
 
-            <div className="space-y-4 md:space-y-5">
+            <div className="space-y-4 md:space-y-5 select-text cursor-text">
               <TextAnimate
                 animation="slideUp"
                 by="word"
@@ -116,7 +117,7 @@ export default function Hero() {
                 once
                 delay={0.45}
                 duration={1.8}
-                className="text-[18px] md:text-[20px] font-light text-white/90 leading-[1.55]"
+                className="select-text cursor-text text-[18px] md:text-[20px] font-light text-white/90 leading-[1.55]"
               >
                 {`•     I'm a third-year Computer Science student who learns by building — shipping self-hosted AI agents, multi-agent systems, and full-stack products from scratch, often debugging my way through unfamiliar infrastructure rather than waiting until I 'know enough' to start. I care more about growth than comfort — I'll take on a stack I've never touched, sit with the frustrating parts until they click, and keep iterating until something actually works.`}
               </TextAnimate>
@@ -129,7 +130,7 @@ export default function Hero() {
                 once
                 delay={0.95}
                 duration={1.8}
-                className="text-[18px] md:text-[20px] font-light text-white/90 leading-[1.55]"
+                className="select-text cursor-text text-[18px] md:text-[20px] font-light text-white/90 leading-[1.55]"
               >
                 {`•    I work full-stack across Next.js, TypeScript, Supabase, and Tailwind, deploying on Vercel, and I build automation systems with n8n layered with AI scoring and decision logic. I'm equally deep in self-directed learning — DSA, AI engineering, and especially agentic and multi-agent systems — because I'd rather understand how something works from the ground up than just use it off the shelf.`}
               </TextAnimate>
@@ -142,7 +143,7 @@ export default function Hero() {
                 once
                 delay={1.45}
                 duration={0.7}
-                className="text-[18px] md:text-[20px] font-light text-white/90 leading-[1.55]"
+                className="select-text cursor-text text-[18px] md:text-[20px] font-light text-white/90 leading-[1.55]"
               >
                 {`•     Currently working in Product Support & Testing at OnePlay.`}
               </TextAnimate>

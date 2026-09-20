@@ -15,7 +15,7 @@ export function ThemeToggler({ isDarkMode, onToggle, className }: ThemeTogglerPr
     <button
       onClick={onToggle}
       className={cn(
-        "relative flex h-8 w-8 items-center justify-center rounded-full transition-colors duration-300",
+        "relative flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-colors duration-300",
         isDarkMode ? "hover:bg-white/10 text-white" : "hover:bg-black/10 text-black",
         className
       )}

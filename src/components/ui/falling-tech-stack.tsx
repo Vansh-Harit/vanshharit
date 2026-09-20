@@ -292,7 +292,7 @@ export function FallingTechStack({
   return (
     <section
       className={cn(
-        "absolute inset-0 overflow-hidden",
+        "pointer-events-none absolute inset-0 overflow-hidden",
         className
       )}
       aria-label={`Interactive technology stack: ${stack
@@ -302,7 +302,7 @@ export function FallingTechStack({
       <div
         ref={containerRef}
         className={cn(
-          "absolute inset-0 touch-none cursor-grab overflow-hidden active:cursor-grabbing",
+          "pointer-events-none absolute inset-0 touch-none overflow-hidden",
           reduceMotion &&
             "flex flex-wrap content-end justify-end gap-3 p-4"
         )}
@@ -315,7 +315,7 @@ export function FallingTechStack({
               key={technology.id}
               data-tech-item
               className={cn(
-                "pointer-events-none flex h-12 w-max min-w-28 select-none items-center justify-center gap-2 rounded-lg border px-3 shadow-lg backdrop-blur-xl will-change-transform",
+                "pointer-events-auto cursor-grab active:cursor-grabbing flex h-12 w-max min-w-28 select-none items-center justify-center gap-2 rounded-lg border px-3 shadow-lg backdrop-blur-xl will-change-transform",
                 !reduceMotion && "absolute left-0 top-0",
                 isDarkMode
                   ? "border-white/15 bg-black/80 text-white shadow-black/50"
